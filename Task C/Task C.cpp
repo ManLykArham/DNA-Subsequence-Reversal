@@ -1,8 +1,19 @@
 #include <iostream>
+#include <algorithm>  // For reverse function
+#include <algorithm>  // For transform
+#include <cctype>     // For toupper
+
 using namespace std;
 
-// Defines the function to reverse subsequence 'y' in string 'x' if prefixed by 'prefix' and suffixed by 'sufix'
-void DNAreverse(string x, string y, string prefix, string sufix)
+// Helper function to convert a string to uppercase
+string toUpperCase(string str)
+{
+    transform(str.begin(), str.end(), str.begin(), ::toupper);
+    return str;
+}
+
+// Defines the function to reverse subsequence 'y' in string 'x' if prefixed by 'prefix' and suffixed by 'suffix'
+void DNAreverse(string x, string y, string prefix, string suffix)
 {
     int yLength = y.length();  // Stores the length of the subsequence 'y'
     string originalX = x;  // Stores the original string 'x' for resetting later
@@ -12,26 +23,40 @@ void DNAreverse(string x, string y, string prefix, string sufix)
     // Loop through 'x' to find all occurrences of 'y'
     while ((Index = x.find(y, Index)) != string::npos)
     {
-        // Extracts the prefix of the current occurrence of 'y' in 'x'
-        string pref = x.substr(Index - prefix.length(), prefix.length());
-        if (pref == prefix)  // Checks if the prefix matches the desired prefix
+        // Ensures the prefix is within valid range
+        if (Index >= prefix.length())
         {
-            cout << "Prefix found" << endl;
+            string pref = x.substr(Index - prefix.length(), prefix.length());
+            if (pref == prefix)
+            {
+                cout << "Prefix found" << endl;
+            }
+            else
+            {
+                cout << "Prefix not found" << endl;
+                Index += yLength;
+                continue;
+            }
         }
-        else
-            cout << "Prefix not found" << endl;
 
-        // Extracts the suffix of the current occurrence of 'y' in 'x'
-        string suf = x.substr(Index + y.length(), sufix.length());
-        if (suf == sufix)  // Checks if the suffix matches the desired suffix
+        // Ensures the suffix is within valid range
+        if (Index + y.length() + suffix.length() <= x.length())
         {
-            cout << "Sufix found" << endl;
+            string suf = x.substr(Index + y.length(), suffix.length());
+            if (suf == suffix)
+            {
+                cout << "Suffix found" << endl;
+            }
+            else
+            {
+                cout << "Suffix not found" << endl;
+                Index += yLength;
+                continue;
+            }
         }
-        else
-            cout << "Sufix not found" << endl;
 
         // If both prefix and suffix match, reverses the subsequence 'y' within 'x'
-        if (pref == prefix && suf == sufix)
+        if (Index >= prefix.length() && (Index + y.length() + suffix.length() <= x.length()))
         {
             reverse(x.begin() + Index, x.begin() + (Index + yLength));  // Reverses the segment within 'x'
             cout << "Sentence " << sentenceNum << ":" << endl;  // Outputs the sentence number
@@ -39,6 +64,7 @@ void DNAreverse(string x, string y, string prefix, string sufix)
             x = originalX;  // Resets 'x' to its original state for the next occurrence
             sentenceNum++;  // Increments the sentence number
         }
+
         Index += yLength;  // Moves the index forward by the length of 'y' to continue searching
     }
 }
@@ -52,22 +78,35 @@ int main()
     string r;
 
     // Prompts user for the main string, subsequence, prefix, and suffix
-    cout << "String S:" << endl;
+    cout << "Enter DNA sequence (main string):" << endl;
     cin >> s;
-    cout << "String Y:" << endl;
+    cout << "Enter subsequence to reverse:" << endl;
     cin >> Y;
-    cout << "Prefix: " << endl;
+    cout << "Enter Prefix: " << endl;
     cin >> l;
-    cout << "Sufix: " << endl;
+    cout << "Enter Suffix: " << endl;
     cin >> r;
 
-    int firstIndex = -1;  // Initializes index for finding the first occurrence of 'Y' in 's'
-    firstIndex = s.find(Y);  // Finds the first occurrence of 'Y' in 's'
+    // Convert all inputs to uppercase
+    s = toUpperCase(s);
+    Y = toUpperCase(Y);
+    l = toUpperCase(l);
+    r = toUpperCase(r);
+
+    // Input validation: Check if any input is empty
+    if (s.empty() || Y.empty() || l.empty() || r.empty())
+    {
+        cout << "Input cannot be empty. Please provide valid DNA strings." << endl;
+        return 1;
+    }
+
+    int firstIndex = s.find(Y);  // Finds the first occurrence of 'Y' in 's'
 
     // Checks if 'Y' is found in 's'
-    if (firstIndex == string::npos)  // If 'Y' is not found
+    if (firstIndex == string::npos)
     {
-        cout << "String y not found" << endl;
+        // Output a message when subsequence is not found
+        cout << "Subsequence not found in the DNA sequence." << endl;
     }
     else
     {
