@@ -35,7 +35,7 @@ This project focuses on manipulating **DNA sequences** by identifying and revers
 - Suffix: `"A"`
 
 **Expected Output**:  
-`"ATGGCTAC"`
+`"ATGTGCAC"`
 
 ---
 
