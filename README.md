@@ -39,6 +39,14 @@ This project focuses on manipulating **DNA sequences** by identifying and revers
 
 ---
 
+## 🎥 Demo
+
+Watch the demo of the AI Image Generator Web App:
+
+[Demo Video](https://youtu.be/5oyxOYDsoEg?si=kFjYRdjeB5mr9DRO)
+
+---
+
 ## 🏆 Achievements
 
 Working on this project provided an opportunity to delve into **string manipulation techniques**, particularly in a **biological context**. By implementing this subsequence reversal, I developed skills in **pattern searching** and **string matching algorithms**, which are critical in bioinformatics. This project not only enhanced my ability to work with complex string operations but also deepened my understanding of how computational tools can aid in the analysis of DNA sequences. 🧪
