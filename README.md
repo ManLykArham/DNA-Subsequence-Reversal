@@ -41,7 +41,7 @@ This project focuses on manipulating **DNA sequences** by identifying and revers
 
 ## 🎥 Demo
 
-Watch the demo of the AI Image Generator Web App:
+Watch the demo of the DNA Subsequence Reversal project:
 
 [Demo Video](https://youtu.be/5oyxOYDsoEg?si=kFjYRdjeB5mr9DRO)
 
